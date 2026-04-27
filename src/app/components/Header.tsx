@@ -163,10 +163,10 @@ export default function Header({ dark, toggleTheme }: HeaderProps) {
     >
       <Content>
         <Image
-          src="/images/logo.png"
+          src="/logo/logoE.png"
           alt="Logo da Loja"
-          width={40}
-          height={40}
+          width={140}
+          height={90}
         />
 
         <SearchBox>
