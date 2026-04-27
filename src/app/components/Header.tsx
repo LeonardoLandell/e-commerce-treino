@@ -10,7 +10,7 @@ const HeaderWrapper = styled.header<{ visible: boolean }>`
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 80px; /* altura fixa */
+  min-height: 80px;
   backdrop-filter: blur(8px);
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(200, 200, 200, 0.5);
@@ -112,13 +112,18 @@ const Nav = styled.nav`
   }
 `;
 
-export default function Header({ toggleTheme }: { toggleTheme: () => void }) {
+// ✅ Ajuste aqui: tipagem correta das props
+type HeaderProps = {
+  dark: boolean;
+  toggleTheme: () => void;
+};
+
+export default function Header({ dark, toggleTheme }: HeaderProps) {
   const [visible, setVisible] = useState(true);
   const [lastInteraction, setLastInteraction] = useState(Date.now());
   const [query, setQuery] = useState("");
   const [filtered, setFiltered] = useState<string[]>([]);
 
-  // Desaparece após 5s sem interação
   useEffect(() => {
     const interval = setInterval(() => {
       if (Date.now() - lastInteraction > 5000) {
@@ -133,7 +138,6 @@ export default function Header({ toggleTheme }: { toggleTheme: () => void }) {
     setVisible(true);
   };
 
-  // Autocomplete
   useEffect(() => {
     if (query.length > 0) {
       setFiltered(
@@ -193,7 +197,8 @@ export default function Header({ toggleTheme }: { toggleTheme: () => void }) {
         <Nav>
           <button>🛒</button>
           <button>❤️</button>
-          <button onClick={toggleTheme}>🌙</button>
+          {/* ✅ Agora o Header sabe lidar com dark */}
+          <button onClick={toggleTheme}>{dark ? "☀️" : "🌙"}</button>
         </Nav>
       </Content>
     </HeaderWrapper>

@@ -1,6 +1,14 @@
 "use client";
 import { createGlobalStyle } from "styled-components";
 
+// Extensão do tipo DefaultTheme para incluir background e foreground
+declare module "styled-components" {
+  export interface DefaultTheme {
+    background: string;
+    foreground: string;
+  }
+}
+
 export const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
